@@ -36,3 +36,17 @@ CREATE TABLE IF NOT EXISTS users (
   enabled boolean not null default false,
   UNIQUE KEY unique_username(username)
 );
+
+CREATE TABLE IF NOT EXISTS role (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(256) NOT NULL,
+  UNIQUE KEY unique_name(name)
+);
+
+CREATE TABLE user_role (
+  user_id bigint NOT NULL,
+  role_id bigint NOT NULL,
+  PRIMARY KEY (user_id,role_id),
+  CONSTRAINT FK_ROLE_ID FOREIGN KEY (role_id) REFERENCES role (id),
+  CONSTRAINT FK_USER_ID FOREIGN KEY (user_id) REFERENCES users (id)
+);

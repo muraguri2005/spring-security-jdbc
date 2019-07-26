@@ -27,12 +27,13 @@ public class UserServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Wrong username or password"));
-        return new org.springframework.security.core.userdetails.User(user.username,user.password, getAuthorities());
+        return new org.springframework.security.core.userdetails.User(user.username,user.password, getAuthorities(user));
     }
-    List<SimpleGrantedAuthority> getAuthorities() {
+    List<SimpleGrantedAuthority> getAuthorities(User user) {
 		List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-		authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-		
+		user.roles.stream().forEach((role) -> {
+			authorities.add(new SimpleGrantedAuthority(role.name));
+		});
 		return authorities;
 	}
 }
