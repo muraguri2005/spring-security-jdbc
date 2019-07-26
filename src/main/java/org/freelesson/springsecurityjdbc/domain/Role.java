@@ -10,11 +10,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name="role")
 public class Role {
-	
-	
-	public static final String ROLE_USER="ROLE_USER";
-	public static final String ROLE_ADMIN="ROLE_ADMIN";
-	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(nullable=false,unique=true)
