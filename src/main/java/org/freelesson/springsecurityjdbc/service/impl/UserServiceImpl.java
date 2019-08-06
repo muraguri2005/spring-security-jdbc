@@ -2,10 +2,14 @@ package org.freelesson.springsecurityjdbc.service.impl;
 
 import org.freelesson.springsecurityjdbc.domain.User;
 import org.freelesson.springsecurityjdbc.repository.UserRepository;
+import org.freelesson.springsecurityjdbc.service.UserService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -14,13 +18,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserDetailsService {
+public class UserServiceImpl implements UserDetailsService, UserService {
 
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Transactional
@@ -36,4 +42,17 @@ public class UserServiceImpl implements UserDetailsService {
 		});
 		return authorities;
 	}
+    
+    @Override
+    public User createUser(User user) throws Exception {
+    	if (userRepository.findByUsername(user.username).isPresent())
+    		throw new Exception("Username is already used");
+    	user.password=passwordEncoder.encode(user.password);
+    	return userRepository.save(user);
+    }
+    
+    @Override
+    public Page<User> listUsers(Pageable pageable) {
+    	return userRepository.findAll(pageable);
+    }
 }
