@@ -22,7 +22,7 @@ VALUES
   );
 
   INSERT INTO users (id,username,password,enabled)
-    VALUES (1,'user', '$2a$10$.hFW5vRkH5.O520y1hrcGOVdeMZIefPe.hOwNP5hRhezbo33aW4cW',true);
+    VALUES (1,'user@example.com', '$2a$10$.hFW5vRkH5.O520y1hrcGOVdeMZIefPe.hOwNP5hRhezbo33aW4cW',true);
 INSERT INTO role (id,name)
     VALUES (1,'ROLE_USER');
 INSERT INTO role (id,name)
