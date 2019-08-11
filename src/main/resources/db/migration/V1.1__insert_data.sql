@@ -23,11 +23,17 @@ VALUES
 
   INSERT INTO users (id,username,password,enabled)
     VALUES (1,'user@example.com', '$2a$10$.hFW5vRkH5.O520y1hrcGOVdeMZIefPe.hOwNP5hRhezbo33aW4cW',true);
+    INSERT INTO users (id,username,password,enabled)
+    VALUES (2,'basicuser@example.com', '$2a$10$Qa4OZyMSaY8w1zvUfSHOtOAQGKRLZSEYcJqyT.hybblT5uJ9xrwQa',true);
 INSERT INTO role (id,name)
     VALUES (1,'ROLE_USER');
 INSERT INTO role (id,name)
     VALUES (2,'ROLE_ADMIN');
+INSERT INTO role (id,name)
+    VALUES (3,'ROLE_TEST');
 INSERT INTO user_role(user_id, role_id)
 VALUES(1,1);
 INSERT INTO user_role(user_id, role_id)
 VALUES(1,2);
+INSERT INTO user_role(user_id, role_id)
+VALUES(2,1);

@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
@@ -16,11 +17,13 @@ public class User {
     public Long id;
 
     @Column(nullable = false,unique = true)
+    @NotNull(message="Username is required")
     public String username;
 
     
     @JsonProperty(access = Access.WRITE_ONLY)
     @Column(nullable = false)
+    @NotNull(message="Password is required")
     public String password;
     
     @ManyToMany
