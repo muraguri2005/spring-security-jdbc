@@ -35,6 +35,7 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 	@Autowired
 	DataSource dataSource;
 
+	@Qualifier("userServiceImpl")
 	@Autowired
 	UserDetailsService userDetailsService;
 

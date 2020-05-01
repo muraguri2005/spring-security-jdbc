@@ -39,9 +39,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     }
     List<SimpleGrantedAuthority> getAuthorities(User user) {
 		List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-		user.roles.stream().forEach((role) -> {
-			authorities.add(new SimpleGrantedAuthority(role.name));
-		});
+		user.roles.forEach((role) -> authorities.add(new SimpleGrantedAuthority(role.name)));
 		return authorities;
 	}
     
